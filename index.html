@@ -21,13 +21,18 @@
       background-color: #fff;
       color: #333;
       border-radius: 12px;
-      padding: 40px;
-      box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
-      width: 400px;
+      padding: 8vw;
+      box-shadow: 0 15px 40px rgba(0, 0, 0, 0.2);
+      width: 80vw; /* Default width for larger screens */
+      transition: transform 0.3s ease;
       display: flex;
       flex-direction: column;
       justify-content: center;
       align-items: center;
+      margin: 0 10vw; /* Add space on both sides */
+    }
+    .container:hover {
+      transform: translateY(-15px);
     }
     button {
       padding: 15px 30px;
@@ -38,11 +43,12 @@
       border: none;
       border-radius: 8px;
       cursor: pointer;
+      transition: background-color 0.3s ease, transform 0.3s ease;
       width: 100%; /* Full-width button */
-      transition: background-color 0.2s ease;
     }
     button:hover {
       background-color: #444;
+      transform: scale(1.1);
     }
     p {
       font-size: 24px;
@@ -55,25 +61,27 @@
       padding: 12px;
       font-size: 14px;
       font-weight: bold;
-      background-color: #333;
+      background-color: #333; /* Button color changed to #333 */
       color: white;
       border: none;
       border-radius: 50px;
       cursor: pointer;
       margin-top: 20px;
       display: none;
-      width: 80%; /* Slightly reduced width */
-      transition: background-color 0.2s ease;
+      width: 100%;
+      transition: background-color 0.3s ease, transform 0.3s ease;
     }
     .share-button:hover {
       background-color: #444;
+      transform: scale(1.05);
     }
 
     /* Media query for mobile responsiveness */
     @media (max-width: 600px) {
       .container {
-        width: 90%;  /* Container takes up most of the width on smaller screens */
-        padding: 20px;
+        width: 90vw;  /* Container takes up more width on smaller screens */
+        padding: 12vw;
+        margin: 0 5vw; /* Add space on both sides for mobile */
       }
       p {
         font-size: 20px;  /* Smaller font for mobile devices */
@@ -85,6 +93,14 @@
       .share-button {
         font-size: 12px;  /* Smaller font size for share button */
         padding: 10px;
+      }
+    }
+
+    /* For screens larger than 600px */
+    @media (min-width: 601px) {
+      .container {
+        width: 60vw; /* Adjust width for medium screens */
+        padding: 6vw;
       }
     }
   </style>
