@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400&display=swap" rel="stylesheet">
+  <style>
+    body {
+      font-family: 'Montserrat', sans-serif;
+      margin: 0;
+      padding: 0;
+      height: 100vh;
+      background-color: #333;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      color: #fff;
+    }
+    .container {
+      text-align: center;
+      background-color: #fff;
+      color: #333;
+      border-radius: 12px;
+      padding: 40px;
+      box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+      width: 400px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+    }
+    button {
+      padding: 15px 30px;
+      font-size: 18px;
+      font-weight: bold;
+      background-color: #333;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      width: 100%; /* Full-width button */
+      transition: background-color 0.2s ease;
+    }
+    button:hover {
+      background-color: #444;
+    }
+    p {
+      font-size: 24px;
+      margin-top: 30px;
+      color: #333;
+      font-weight: 500;
+      margin-bottom: 20px; /* Added some space below the joke */
+    }
+    .share-button {
+      padding: 12px;
+      font-size: 14px;
+      font-weight: bold;
+      background-color: #333;
+      color: white;
+      border: none;
+      border-radius: 50px;
+      cursor: pointer;
+      margin-top: 20px;
+      display: none;
+      width: 80%; /* Slightly reduced width */
+      transition: background-color 0.2s ease;
+    }
+    .share-button:hover {
+      background-color: #444;
+    }
+
+    /* Media query for mobile responsiveness */
+    @media (max-width: 600px) {
+      .container {
+        width: 90%;  /* Container takes up most of the width on smaller screens */
+        padding: 20px;
+      }
+      p {
+        font-size: 20px;  /* Smaller font for mobile devices */
+      }
+      button {
+        font-size: 16px;  /* Smaller button text for mobile devices */
+        padding: 12px 20px;
+      }
+      .share-button {
+        font-size: 12px;  /* Smaller font size for share button */
+        padding: 10px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <button onclick="getJoke()">Ek Pita Ka Chutakula Leejie</button>
+    <p id="joke"></p>
+    <button class="share-button" onclick="copyToClipboard()">SHARE</button>
+  </div>
+
+  <script>
+    function getJoke() {
+      const jokeElement = document.getElementById('joke');
+      const shareButton = document.querySelector('.share-button');
+      jokeElement.textContent = "Loading...";
+
+      fetch('https://official-joke-api.appspot.com/random_joke')
+        .then(response => response.json())
+        .then(data => {
+          jokeElement.textContent = `${data.setup} - ${data.punchline}`;
+          shareButton.style.display = 'inline-block'; // Show the Share button
+        })
+        .catch(error => {
+          jokeElement.textContent = "Sorry, couldn't fetch a joke at the moment.";
+          shareButton.style.display = 'none'; // Hide the Share button if joke fails
+        });
+    }
+
+    function copyToClipboard() {
+      const jokeText = document.getElementById('joke').textContent;
+      if (jokeText && jokeText !== "Loading...") {
+        navigator.clipboard.writeText(jokeText).then(() => {
+          alert("Joke copied to clipboard! Share it with your friends.");
+        }).catch(err => {
+          alert("Failed to copy the joke.");
+        });
+      } else {
+        alert("Please wait for the joke to load first.");
+      }
+    }
+  </script>
+
+</body>
+</html>
